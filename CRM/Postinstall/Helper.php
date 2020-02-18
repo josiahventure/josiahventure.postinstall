@@ -42,9 +42,10 @@ class CRM_Postinstall_Helper {
       'delete in CiviCase'
     ]);
   }
-    /**
-     * Install missing CiviCase permissions (#6045)
-     */
+
+  /**
+   * Install missing CiviCase permissions (#6045)
+   */
   public function setGDPRPermissions() {
     $role = user_role_load_by_name('administrator');
     user_role_grant_permissions($role->rid, [
@@ -52,5 +53,24 @@ class CRM_Postinstall_Helper {
       'administer GDPR',
       'forget contact',
     ]);
+  }
+
+  /**
+   * Deleting states of a country (#6081)
+   */
+  public function deleteProvincesFromCountry($country_code){
+    $sql = <<< SQL
+    select sp.id  from civicrm_state_province sp
+    join civicrm_country c on (c.id=sp.country_id)
+    where c.iso_code=%1
+SQL;
+    $dao = CRM_Core_DAO::executeQuery($sql,[
+      1 => [$country_code,'String']
+    ]);
+    while($dao->fetch()){
+      $result = civicrm_api3('StateProvince', 'delete', [
+        'id' => $dao->id,
+      ]);
+    }
   }
 }

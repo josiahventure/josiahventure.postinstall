@@ -30,5 +30,9 @@ function civicrm_api3_jv_tasks_Postinstall($params) {
   $helper -> setComponents();
   $helper-> setCiviCasePermissions();
   $helper-> setGDPRPermissions();
+  // deleting states from a province (in order to replace them with other states #6081)
+  $helper-> deleteProvincesFromCountry('PL'); // Poland
+  $helper-> deleteProvincesFromCountry('CZ'); // Czech Republic
+  $helper-> deleteProvincesFromCountry('SK'); // Slovakia
   return civicrm_api3_create_success($returnValues, $params, 'JvTasks', 'Postinstall');
 }
