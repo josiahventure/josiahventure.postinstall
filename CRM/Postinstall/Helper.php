@@ -8,7 +8,12 @@ class CRM_Postinstall_Helper {
   public function __construct() {
   }
 
-  public function setModules(){
+
+  /**
+   * Disables the module CiviPlegde (#6042)
+   * @throws \CiviCRM_API3_Exception
+   */
+  public function setComponents(){
 
     $enabled_components =  [
       "CiviEvent",
