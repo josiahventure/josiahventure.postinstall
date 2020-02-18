@@ -31,18 +31,26 @@ class CRM_Postinstall_Helper {
   /**
    * Install missing CiviCase permissions (#6044)
    */
-  public function setCiviCasePermissions(){
+  public function setCiviCasePermissions() {
     $role = user_role_load_by_name('administrator');
-    user_role_grant_permissions($role->rid,[
-        'administer CiviCase',
-        'access all cases and activities',
-        'access my cases and activities',
-        'add cases',
-        'basic case information',
-        'delete in CiviCase'
-      ]);
-
-
+    user_role_grant_permissions($role->rid, [
+      'administer CiviCase',
+      'access all cases and activities',
+      'access my cases and activities',
+      'add cases',
+      'basic case information',
+      'delete in CiviCase'
+    ]);
   }
-
+    /**
+     * Install missing CiviCase permissions (#6045)
+     */
+  public function setGDPRPermissions() {
+    $role = user_role_load_by_name('administrator');
+    user_role_grant_permissions($role->rid, [
+      'access GDPR',
+      'administer GDPR',
+      'forget contact',
+    ]);
+  }
 }

@@ -11,3 +11,4 @@ The tasks can executed with an api call:
 
 * Disables CiviPledge (or restricts the CiviCRM modules to the following set "CiviEvent","CiviContribute","CiviMember","CiviMail","CiviReport" and "CiviCase")
 * Install missing CiviCase permissions (#6044)
+* Install missing GDPR permissions (#6045)
