@@ -27,6 +27,7 @@ function _civicrm_api3_jv_tasks_Postinstall_spec(&$spec) {
  */
 function civicrm_api3_jv_tasks_Postinstall($params) {
   $helper = new CRM_Postinstall_Helper();
-  $helper -> setComponents();
+  //$helper -> setComponents();
+  $helper-> setCiviCasePermissions();
   return civicrm_api3_create_success($returnValues, $params, 'JvTasks', 'Postinstall');
 }

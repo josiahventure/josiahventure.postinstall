@@ -14,7 +14,6 @@ class CRM_Postinstall_Helper {
    * @throws \CiviCRM_API3_Exception
    */
   public function setComponents(){
-
     $enabled_components =  [
       "CiviEvent",
       "CiviContribute",
@@ -27,6 +26,22 @@ class CRM_Postinstall_Helper {
     civicrm_api3('Setting','create',[
       'enable_components'=> $enabled_components
     ]);
+  }
+
+  /**
+   * Install missing CiviCase permissions (#6044)
+   */
+  public function setCiviCasePermissions(){
+    $role = user_role_load_by_name('administrator');
+    user_role_grant_permissions($role->rid,[
+        'administer CiviCase',
+        'access all cases and activities',
+        'access my cases and activities',
+        'add cases',
+        'basic case information',
+        'delete in CiviCase'
+      ]);
+
 
   }
 
